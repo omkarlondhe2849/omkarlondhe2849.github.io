@@ -1,2 +1,0 @@
-# Portfollio
-MY Digital portfollio
