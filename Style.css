@@ -1,0 +1,193 @@
+*{
+ font-family: sans-serif;  
+ margin: 0;
+ padding: 0;
+ background-color: rgb(10, 24, 104); 
+}
+ 
+
+.home{
+    
+    width: 100%;
+    height: 40vh;
+    
+    
+}
+
+nav{
+    display: flex;
+    width: 100%;
+    padding: auto;
+    justify-content: center;
+    position: fixed;
+    border-style: dotted;
+    border-color: white;
+   
+}
+
+nav ul li{
+    display: inline-block;
+    list-style: none;
+    margin-left: 90px;
+}
+
+nav ul li a{
+    font-size: 30px;
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+    
+    
+    
+}
+
+nav ul li a:hover{
+    color: brown;
+}
+
+.detel{
+    margin-left: 6%;
+    margin-top: 23%;
+
+}
+#user-pic {
+    width: 300px; 
+    height: 300px; 
+    border-radius: 50%; 
+    display: block;
+    margin: 0 auto; 
+    margin-top: 30px;
+}
+
+.detel h1{
+    font-size: 50px;
+    color: rgb(255, 255, 255);
+    
+
+}
+
+span{
+    color: rgb(255, 68, 0);
+}
+
+.detel h1{
+    margin-top: 10%;
+}
+
+.detel p{
+    color: rgb(255, 255, 255);
+    line-height: 50px;
+    font-size: 30px;
+}
+.Socialmedia ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    
+}
+.Socialmedia li{
+    margin: 5px;
+    width: 50px;
+    margin-top: 50px;
+}
+
+p{
+    align-items: center;
+    margin-right: 10px;
+}
+
+li{
+    padding: 50px;
+    width: 20px;
+    height: 10px;
+    background-attachment: cover;
+    display: inline-flex;
+    margin: 5px;
+    
+    }
+    
+#img{
+        height: 60px;
+        width: 80px;
+        margin-top: 50px;
+        margin-left: 700px;
+        
+}
+.container {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    border-style: dotted;
+    border-color: white;
+}
+
+.detel, .user-photo {
+    flex-basis: 50%; 
+}
+
+.About{
+    border-style: dotted;
+    border-color: aliceblue;
+}
+
+.About h1{
+    font-weight: bold;
+    color: rgb(238, 255, 0);
+    margin-top: 130px;
+    margin-left: 45%;
+    font-size: 50px;
+    margin-bottom: 45px;
+}
+
+.About p{
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+    margin-top: 100px;
+    margin-left: 10%;
+    font-size: 30px;
+}
+.About h2{
+    color: rgb(255, 0, 0);
+    font-size: 30px;
+    margin-left: 30px;
+    margin-top: 150px;
+}
+.About h3{
+    color: rgb(255, 0, 0);
+    font-size: 30px;
+    margin-left: 30px;
+    margin-bottom: 80px;
+}
+.Skills{
+    border-style: dotted;
+    border-color: aliceblue
+}
+.Skills h1{
+
+        font-weight: bold;
+        color: rgb(202, 215, 14);
+        margin-top: 135px;
+        margin-left: 45%;
+        font-size: 50px;   
+}
+.Skills ul li{
+    display: inline-block;
+    margin-left: 100px;
+    margin-top: 100px;
+}
+.Projects{
+    border-style: dotted;
+    border-color: aliceblue
+}
+.Projects h1{
+    font-weight: bold;
+        color: rgb(202, 215, 14);
+        margin-top: 70px;
+        margin-left: 45%;
+        font-size: 50px; 
+}
+
+
+
+
+
