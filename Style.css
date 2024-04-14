@@ -2,7 +2,7 @@
  font-family: sans-serif;  
  margin: 0;
  padding: 0;
- background-color: rgb(23, 56, 243); 
+ background-color: rgb(61, 74, 174); 
 }
  
 
@@ -12,15 +12,13 @@ nav{
     padding: auto;
     justify-content: center;
     position: fixed;
-    margin-right: auto;
-    margin-bottom: auto;
     border-bottom: 5px dotted white;
     border-top: 5px dotted white;
 }
 
 nav ul li{
     display: inline-block;
-    list-style: none;
+    list-style: none;   
     margin-left: 60px;
 }
 
@@ -40,7 +38,6 @@ nav ul li a:hover{
 .detel{
     margin-left: 6%;
     margin-top: 23%;
-    
 }
 #user-pic {
     width: 300px; 
@@ -96,8 +93,7 @@ li{
     background-attachment: cover;
     display: inline-flex;
     margin: 5px;
-    
-    }
+}
     
 #img{
         height: 60px;
@@ -106,33 +102,34 @@ li{
         margin-left: 700px;
         
 }
+.About{
+    border-style: dotted;
+    border-color: rgb(61, 74, 174);
+} 
+
 .container {
     display: flex;
     justify-content: space-between; 
     align-items: center;
     border-bottom: 5px dotted white;
-    margin-bottom: auto;
 }
 
 .detel, .user-photo {
-    flex-basis: 50%; 
+    flex-basis: 60%; 
 }
-
 .About h1{
     font-weight: bold;
     color: rgb(238, 255, 0);
-    margin-top: 130px;
+    margin-top: 150px;
     font-size: 50px;
-    margin-bottom: 45px;
     display: flex;
-    align-items: center;
     justify-content: center;
 }
 
 .About p{
     font-weight: bold;
     color: rgb(255, 255, 255);
-    margin-top: 100px;
+    margin-top: 80px;
     margin-left: 10%;
     font-size: 30px;
 }
@@ -140,7 +137,7 @@ li{
     color: rgb(255, 0, 0);
     font-size: 30px;
     margin-left: 30px;
-    margin-top: 150px;
+    margin-top: 160px;
 }
 .About h3{
     color: rgb(255, 0, 0);
@@ -163,8 +160,21 @@ li{
     display: inline-block;
     margin-left: 10px;
     margin-top: 100px;
-    margin-bottom: auto;
-   
+}
+.Skills h2{
+
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+    margin-left: 5%;
+    font-size: 50px;
+    margin-top: 100px;   
+}
+.Skills h3{
+
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+    margin-left: 5%;
+    font-size: 50px;  
 }
 .Projects{
     border-bottom: 5px dotted white;
