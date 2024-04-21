@@ -2,34 +2,33 @@
  font-family: sans-serif;  
  margin: 0;
  padding: 0;
- background-color: rgb(75, 83, 150); 
+ background-color: rgb(19, 19, 19);
 }
  
 
 nav{
     display: flex;
     width: 100%;
-    padding: auto;
+    padding: 1px;
     justify-content: center;
     position: fixed;
-    border-bottom: 5px dotted white;
-    border-top: 5px dotted white;
+    border-bottom: 10px dotted white;
 }
 
 nav ul li{
     display: inline-block;
-    list-style: none;   
-    margin-left: 60px;
+    list-style: none;
+    margin-left: 70px;   
 }
 
 nav ul li a{
     font-size: 30px;
     font-weight: bold;
-    color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
 }
 
 nav ul li a:hover{
-    color: brown;
+    color: rgb(246, 0, 0);
 }
 
 .detel{
@@ -48,16 +47,14 @@ nav ul li a:hover{
 .detel h1{
     font-size: 50px;
     color: rgb(255, 255, 255);
-    
-
 }
 
 span{
-    color: rgb(255, 68, 0);
+    color: rgb(255, 89, 0);
 }
 
 .detel h1{
-    margin-top: 10%;
+    margin-top: 30px;
 }
 
 .detel p{
@@ -100,23 +97,31 @@ li{
         
 }
 .About{
-    border-style: dotted;
-    border-color: rgb(61, 74, 174);
+    border-bottom: 5px dotted;
+    border-top: 5px dotted;
+    border-color: azure;
+    margin-bottom: 100px;
+
 } 
 
 .container {
     display: flex;
     justify-content: space-between; 
     align-items: center;
-    border-bottom: 5px dotted white;
 }
 
 .detel, .user-photo {
     flex-basis: 60%; 
 }
+
+.About{
+    padding: 0;
+    margin: 0;
+    margin-bottom: 100px;
+}
 .About h1{
     font-weight: bold;
-    color: rgb(238, 255, 0);
+    color: rgb(255, 213, 0);
     margin-top: 150px;
     font-size: 50px;
     display: flex;
@@ -131,57 +136,72 @@ li{
     font-size: 30px;
 }
 .About h2{
-    color: rgb(255, 0, 0);
+    color: rgb(255, 255, 255);
     font-size: 30px;
     margin-left: 30px;
-    margin-top: 160px;
-}
-.About h3{
-    color: rgb(255, 0, 0);
-    font-size: 30px;
-    margin-left: 30px;
-    margin-bottom: 80px;
-}
-.Skills{
-    border-top: 5px dotted white;
-}
-.Skills h1{
-
-        font-weight: bold;
-        color: rgb(202, 215, 14);
-        margin-top: 135px;
-        margin-left: 45%;
-        font-size: 50px;   
-}
-.Skills ul li{
-    display: inline-block;
-    margin-left: 10px;
     margin-top: 100px;
 }
-.Skills h2{
+.About h3{
+    color: rgb(255, 255, 255);
+    font-size: 25px;
+    margin-left: 30px;
+    margin-bottom: 120px;
+}
+.Skills{
+    border-top: 5px dotted;
+    border-color: aliceblue;
+    border-bottom: 5px dotted;
+    border-color: aliceblue;
+}
+.Skills h1{
+   align-items: center;
+   justify-content: center;
+   display: flex;
+   font-size: 50px;
+   color: white;
+   margin-top: 200px;
+}
 
+.Skills h1{
+    font-weight: bold;
+    color: rgb(255, 208, 0);
+    font-size: 50px; 
+    margin: 0;
+    padding: 0px;
+    margin-top: 150px;
+}
+
+.Skills h2{
     font-weight: bold;
     color: rgb(255, 255, 255);
-    margin-left: 5%;
-    font-size: 50px;
-    margin-top: 100px;   
+    font-size: 25px;
+    margin-top: 80px; 
+    margin-left: 150px;
 }
 .Skills h3{
-
     font-weight: bold;
     color: rgb(255, 255, 255);
-    margin-left: 5%;
-    font-size: 50px;  
+    font-size: 25px; 
+    margin-top: 80px;
+    margin-left: 150px; 
 }
-.Projects{
-    border-bottom: 5px dotted white;
-    border-top: 5px dotted white;
+.Skills h4{
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+    font-size: 25px;
+    margin-top: 80px; 
+    margin-bottom: 100px;
+    margin-left: 150px; 
 }
 .Projects h1{
     font-weight: bold;
-        color: rgb(202, 215, 14);
-        margin-top: 70px;
-        margin-left: 45%;
-        font-size: 50px; 
+    color: rgb(255, 255, 255);
+    margin-top: 70px;
+    margin-left: 45%;
+    font-size: 50px; 
 }
+
+
+
+
 
