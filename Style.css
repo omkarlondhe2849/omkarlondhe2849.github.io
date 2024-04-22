@@ -35,13 +35,19 @@ nav ul li a:hover{
     margin-left: 6%;
     margin-top: 23%;
 }
+
+#abc {
+    background-color: aliceblue;
+    border-radius: 40%;
+}
 #user-pic {
     width: 300px; 
     height: 300px; 
-    border-radius: 50%; 
+    border-radius: 53%; 
     display: block;
     margin: 0 auto; 
     margin-top: 30px;
+    background-color: aliceblue;
 }
 
 .detel h1{
@@ -87,6 +93,7 @@ li{
     background-attachment: cover;
     display: inline-flex;
     margin: 5px;
+    
 }
     
 #img{
@@ -94,7 +101,7 @@ li{
         width: 80px;
         margin-top: 50px;
         margin-left: 700px;
-        
+          
 }
 .About{
     border-bottom: 5px dotted;
