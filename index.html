@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    COA nasm Codes
+1. Addition of 2 numbers
+%macro READ 2
+mov rax,0
+mov rdi,0
+mov rsi,%1
+mov rdx,%2
+syscall 
+%endmacro
+%macro WRITE 2
+mov rax,1
+mov rdi,1
+mov rsi,%1
+mov rdx,%2
+syscall
+%endmacro
+section .data
+ msg db "Enter first number", 10 ; First input prompt
+ len equ $ - msg ; Length of first prompt
+ msg1 db "Enter second number", 10 ; Second input prompt
+ len1 equ $ - msg1 ; Length of second prompt
+ msg2 db "The sum is", 10 ; Sum display message
+ len2 equ $ - msg2 ; Length of sum display message
+section .bss
+ num1 resb 2 ; Allocate memory for first
+ num2 resb 2 ; Allocate memory for second number
+ sum resb 2 ; Allocate memory for the sum
+section .text
+global _start
+_start:
+ WRITE msg,len
+ READ num1,2
+ WRITE msg1,len1
+ READ num2,2
+ mov rax, [num1] ; Move first number into rax
+ sub rax, 30h ; Convert ASCII to integer
+ mov rbx, [num2] ; Move second number into rbx
+ sub rbx, 30h ; Convert ASCII to integer
+ add rax, rbx ; Add the two numbers
+ add rax, 30h ; Convert the result to ASCII
+ mov [sum], rax ; Store the result in the sum buffer
+ WRITE msg2,len2
+ WRITE sum,2
+ 
+ ; Exit program
+ mov rax, 60 ; Exit system call
+ mov rdi, 0 ; Exit code 0
+ syscall
+2. Multiplication Using Successive Addition
+section .data
+msg db "Multiplication using Successive Addition", 10
+msg_len equ $-msg
+msg1 db "Input the multiplicand:", 10
+msg1_len equ $-msg1
+msg2 db "Input the multiplier:", 10
+msg2_len equ $-msg2
+msg3 db "Result of multiplication:", 10
+msg3_len equ $-msg3
+msg_space db " ", 10
+msg_space_len equ $-msg_space
+%macro write 2
+ mov rax, 1
+ mov rdi, 1
+ mov rsi, %1
+ mov rdx, %2
+ syscall
+%endmacro
+%macro read 2
+ mov rax, 0
+ mov rdi, 0
+ mov rsi, %1
+ mov rdx, %2
+ syscall
+%endmacro
+section .bss
+num resb 17
+buff resb 16
+no1 resq 1
+no2 resq 1
+result resq 1
+ccnt resq 1
+section .text
+global _start
+_start:
+ write msg_space, msg_space_len
+ write msg, msg_len
+ write msg_space, msg_space_len
+ ; Input multiplicand
+ write msg1, msg1_len
+ read num, 17
+ dec rax
+ mov qword [ccnt], rax
+ call accept
+ mov qword [no1], rbx
+ ; Input multiplier
+ write msg2, msg2_len
+ read num, 17
+ dec rax
+ mov qword [ccnt], rax
+ call accept
+ mov qword [no2], rbx
+ ; Perform multiplication using successive addition
+ mov rbx, 0
+multiply_loop:
+ add rbx, qword [no1]
+ dec qword [no2]
+ cmp qword [no2], 0
+ jne multiply_loop
+ ; Display result
+ mov qword [result], rbx
+ write msg3, msg3_len
+ call disp
+ ; Exit
+ mov rax, 60
+ mov rdi, 0
+ syscall
+accept:
+ mov rbx, 0
+ mov rsi, num
+ mov rdx, 0
+parse_input:
+ shl rbx, 4
+ mov dl, byte [rsi]
+ cmp dl, 39h
+ jbe convert_char
+ sub dl, 7
+convert_char:
+ sub dl, 30h
+ add rbx, rdx
+ inc rsi
+ dec qword [ccnt]
+ jnz parse_input
+ ret
+disp:
+ mov rsi, buff
+ mov rcx, 16
+ mov rdx, 0
+convert_to_display:
+ rol rbx, 4
+ mov dl, bl
+ and dl, 0Fh
+ cmp dl, 9
+ jbe make_char
+ add dl, 7
+make_char:
+ add dl, 30h
+ mov [rsi], dl
+ inc rsi
+ dec rcx
+ jnz convert_to_display
+ write buff, 16
+ ret
+3. Multiplication Using Add and Shift
+section .data
+msg db "Multiplication using Add and Shift", 10
+msg_len equ $-msg
+msg1 db "Input the multiplicand:", 10
+msg1_len equ $-msg1
+msg2 db "Input the multiplier:", 10
+msg2_len equ $-msg2
+msg3 db "Result of multiplication:", 10
+msg3_len equ $-msg3
+msg_space db " ", 10
+msg_space_len equ $-msg_space
+%macro write 2
+ mov rax, 1
+ mov rdi, 1
+ mov rsi, %1
+ mov rdx, %2
+ syscall
+%endmacro
+%macro read 2
+ mov rax, 0
+ mov rdi, 0
+ mov rsi, %1
+ mov rdx, %2
+ syscall
+%endmacro
+section .bss
+num resb 17
+buff resb 16
+no1 resq 1
+no2 resq 1
+A resq 1
+B resq 1
+Q resq 1
+n resq 1
+section .text
+global _start
+_start:
+ write msg_space, msg_space_len
+ write msg, msg_len
+ write msg_space, msg_space_len
+ ; Input multiplicand
+ write msg1, msg1_len
+ read num, 17
+ dec rax
+ mov qword [ccnt], rax
+ call accept
+ mov qword [B], rbx
+ ; Input multiplier
+ write msg2, msg2_len
+ read num, 17
+ dec rax
+ mov qword [ccnt], rax
+ call accept
+ mov qword [Q], rbx
+ ; Perform multiplication using add and shift
+ mov qword [A], 0 ; Initialize accumulator
+ mov qword [n], 64 ; 64-bit counter
+binary_loop:
+ mov rax, qword [Q]
+ and rax, 1 ; Get LSB of Q
+ cmp rax, 1
+ jne shift_operation
+ mov rax, qword [A]
+ mov rbx, qword [B]
+ add rax, rbx
+ mov qword [A], rax
+shift_operation:
+ mov rax, qword [A]
+ mov rbx, qword [Q]
+ shr rbx, 1
+ and rax, 1
+ cmp rax, 1
+ jne shift_accumulator
+ mov rdx, 1
+ rol rdx, 63
+ or rbx, rdx
+shift_accumulator:
+ mov rax, qword [A]
+ shr rax, 1
+ mov qword [A], rax
+ mov qword [Q], rbx
+ dec qword [n]
+ jnz binary_loop
+ ; Display result
+ write msg3, msg3_len
+ mov rbx, qword [A]
+ call disp
+ ; Exit
+ mov rax, 60
+ mov rdi, 0
+ syscall
+accept:
+ mov rbx, 0
+ mov rsi, num
+ mov rdx, 0
+parse_input:
+ shl rbx, 4
+ mov dl, byte [rsi]
+ cmp dl, 39h
+ jbe convert_char
+ sub dl, 7
+convert_char:
+ sub dl, 30h
+ add rbx, rdx
+ inc rsi
+ dec qword [ccnt]
+ jnz parse_input
+ ret
+disp:
+ mov rsi, buff
+ mov rcx, 16
+ mov rdx, 0
+convert_to_display:
+ rol rbx, 4
+ mov dl, bl
+ and dl, 0Fh
+ cmp dl, 9
+ jbe make_char
+ add dl, 7
+make_char:
+ add dl, 30h
+ mov [rsi], dl
+ inc rsi
+ dec rcx
+ jnz convert_to_display
+ write buff, 16
+ ret
+4. String Operations
+%macro read 2
+ mov rax, 0
+ mov rdi, 0
+ mov rsi, %1
+ mov rdx, %2
+ syscall
+%endmacro
+%macro write 2
+ mov rax, 1
+ mov rdi, 1
+ mov rsi, %1
+ mov rdx, %2
+ syscall
+%endmacro
+section .data
+Menumsg db 10, "1. Stringlength", 10
+ db "2. String copy", 10
+ db "3. String reverse", 10
+ db "4. String compare", 10
+ db "5. String concat", 10
+ db "6. Check palindrome", 10
+ db "7. String substring", 10
+ db "8. Exit", 10
+ db "Enter your choice -1-8", 10
+Menulen equ $ - Menumsg
+msg1 db "Enter String1", 10
+len1 equ $ - msg1
+msg2 db "Enter String2", 10
+len2 equ $ - msg2
+msg3 db "The length of string:", 10
+len3 equ $ - msg3
+msg4 db "The copied string", 10
+len4 equ $ - msg4
+msg5 db "The reverse String", 10
+len5 equ $ - msg5
+msg6 db "Strings are equal", 10
+len6 equ $ - msg6
+msg7 db "Strings are not equal", 10
+len7 equ $ - msg7
+msg8 db "The concatenated string", 10
+len8 equ $ - msg8
+msg9 db "String is a palindrome", 10
+len9 equ $ - msg9
+msg10 db "String is not a palindrome", 10
+len10 equ $ - msg10
+msg11 db "Substring found", 10
+len11 equ $ - msg11
+msg12 db "Substring not found", 10
+len12 equ $ - msg12
+msg13 db "Wrong choice", 10
+len13 equ $ - msg13
+section .bss
+string1 resb 20
+string2 resb 20
+string3 resb 40
+l1 resq 1
+l2 resq 1
+l3 resq 1
+choice resb 2
+char_buff resb 16
+section .text
+global _start
+_start:
+ write msg1, len1
+ read string1, 20
+ dec rax
+ mov [l1], rax
+ write msg2, len2
+ read string2, 20
+ dec rax
+ mov [l2], rax
+printmenu:
+ write Menumsg, Menulen
+ read choice, 2
+ cmp byte [choice], 31h
+ je strlen
+ cmp byte [choice], 32h
+ je strcpy
+ cmp byte [choice], 33h
+ je strrev
+ cmp byte [choice], 34h
+ je strcmp
+ cmp byte [choice], 35h
+ je strcat ; Call the strcat operation for concatenation
+ cmp byte [choice], 36h
+ je strpalindrome
+ cmp byte [choice], 37h
+ je substr
+ cmp byte [choice], 38h
+ je exit
+ write msg13, len13
+ jmp printmenu
+strlen:
+ write msg3, len3
+ mov rbx, [l1]
+ call display
+ jmp printmenu
+strcpy:
+ mov rsi, string1
+ mov rdi, string3
+ mov rcx, [l1]
+ cld
+ rep movsb
+ write msg4, len4
+ write string3, [l1]
+ jmp printmenu
+strrev:
+ mov rsi, string1
+ add rsi, [l1]
+ dec rsi
+ mov rdi, string3
+ mov rcx, [l1]
+up:
+ mov bl, byte [rsi]
+ mov byte [rdi], bl
+ dec rsi
+ inc rdi
+ dec rcx
+ jnz up
+ write msg5, len5
+ write string3, [l1]
+ jmp printmenu
+strcmp:
+ mov rbx, [l1]
+ cmp rbx, qword [l2]
+ jne nonequal
+ mov rsi, string1
+ mov rdi, string2
+ mov rcx, [l1]
+ cld
+ repe cmpsb
+ jne nonequal
+ write msg6, len6
+ jmp printmenu
+nonequal:
+ write msg7, len7
+ jmp printmenu
+strcat: ; String Concatenation (strcat) implementation
+ mov rsi, string1
+ mov rdi, string3
+ mov rcx, [l1]
+ cld
+ rep movsb ; Copy string1 to string3
+ mov rsi, string2
+ mov rcx, [l2]
+ rep movsb ; Copy string2 to string3 after string1
+ mov rbx, [l1]
+ add rbx, [l2]
+ mov [l3], rbx
+ write msg8, len8
+ write string3, [l3]
+ jmp printmenu
+strpalindrome:
+ mov rsi, string1
+ add rsi, [l1]
+ dec rsi
+ mov rdi, string3
+ mov rcx, [l1]
+up1:
+ mov dl, byte [rsi]
+ mov byte [rdi], dl
+ dec rsi
+ inc rdi
+ dec rcx
+ jnz up1
+ mov rsi, string1
+ mov rdi, string3
+ mov rcx, [l1]
+ cld
+ repe cmpsb
+ jne notequal1
+ write msg9, len9
+ jmp printmenu
+notequal1:
+ write msg10, len10
+ jmp printmenu
+substr:
+ mov rsi, string1
+ mov rdi, string2
+ mov rcx, [l2]
+up3:
+ mov al, byte [rsi]
+ cmp al, byte [rdi]
+ je same
+ mov rdi, string2
+ mov rbx, [l2]
+ inc rsi
+ jmp up3
+same:
+ inc rsi
+ inc rdi
+ dec rbx
+ dec qword [l1]
+ cmp rbx, 0
+ je st
+ cmp qword [l1], 0
+ jne up3
+ write msg12, len12
+ jmp printmenu
+st:
+ write msg11, len11
+ jmp printmenu
+exit:
+ mov rax, 60
+ xor rdi, rdi
+ syscall
+display:
+ mov rsi, char_buff
+ mov rcx, 16
+up2:
+ rol rbx, 4
+ mov dl, bl
+ and dl, 0Fh
+ cmp dl, 9
+ jbe add30
+ add dl, 7
+add30:
+ add dl, 30h
+ mov byte [rsi], dl
+ inc rsi
+ dec rcx
+ jnz up2
+ write char_buff, 16
+ ret
+5. Roots of a Quadratic Equation
+extern printf
+extern scanf
+%macro write 2
+push rbp
+mov rax,0
+mov rdi,%1
+mov rsi,%2
+call printf
+pop rbp
+%endmacro
+%macro scan 2
+push rbp
+mov rax,0
+mov rdi,%1
+mov rsi,%2
+call scanf
+pop rbp
+%endmacro
+%macro printfloat 2
+push rbp
+mov rax,1
+mov rdi,%1
+movsd xmm0,%2
+call printf
+pop rbp
+%endmacro
+section .data
+m1 db "%lf",0
+m2 db "%s",0
+msg1 db "Enter the values of a, b, & c: ", 0
+msg2 db "Roots are: "
+msg3 db 10
+section .bss
+a resb 8
+b resb 8
+c resb 8
+temp resw 1
+t1 resb 8
+t2 resb 8
+t3 resb 8
+t4 resb 8
+r1 resb 10
+r2 resb 10
+section .text
+global main
+main:
+write m2,msg1
+scan m1,a
+scan m1,b
+scan m1,c
+write m2,msg2
+finit
+fld qword[b]
+fmul st0,st0 ;b*b
+fstp qword[t1] ;t1=b^2
+fld qword[a]
+fmul qword[c]
+mov word[temp],4
+fimul word[temp]
+fstp qword[t2] ;t2=4ac
+fld qword[t1]
+fsub qword[t2]
+fstp qword[t4] ;t4=b^2-4ac
+fld qword[t4]
+fabs
+fsqrt
+fstp qword[t1] ;t1=root of b^2-4ac
+fld qword[b]
+fchs
+fstp qword[t2]
+fld qword[a]
+mov qword[temp],02
+fimul word[temp]
+fstp qword[t3]
+cmp qword[t4],0
+je equal_root
+fld qword[t2]
+fadd qword[t1]
+fdiv qword[t3]
+fstp qword[r1]
+printfloat m1,[r1]
+equal_root:
+fld qword[t2]
+fsub qword[t1]
+fdiv qword[t3]
+fstp qword[r2]
+printfloat m1,[r2]
+write m2,msg3
+mov rax,0
+ret
+6. Hello world
+section .data
+ msg db "Hello, World!", 10 ; The string to print, followed by a newline
+ msg_len equ $ - msg ; Length of the message
+section .text
+ global _start ; Entry point for the program
+_start:
+ mov rax, 1 ; syscall: write
+ mov rdi, 1 ; file descriptor: stdout
+ mov rsi, msg ; address of the message to print
+ mov rdx, msg_len ; length of the message
+ syscall ; invoke the system call
+ mov rax, 60 ; syscall: exit
+ xor rdi, rdi ; status: 0 (success)
+ syscall ; invoke the system call
+</body>
+</html>
